@@ -1,11 +1,14 @@
 import React from "react";
+import Container from "./components/Container";
 import Header from "./components/Header";
 import MuiThemeProvider from "./muiTheme/muiThemeProvider";
 
 function App() {
   return (
     <MuiThemeProvider>
-      <Header />
+      <Container>
+        <Header />
+      </Container>
     </MuiThemeProvider>
   );
 }
