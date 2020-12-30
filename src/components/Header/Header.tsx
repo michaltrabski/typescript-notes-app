@@ -17,7 +17,7 @@ import MenuIcon from "@material-ui/icons/Menu";
 import AddIcon from "@material-ui/icons/Add";
 import SearchIcon from "@material-ui/icons/Search";
 import MoreIcon from "@material-ui/icons/MoreVert";
-import Notes from "./Notes";
+import Notes from "../Notes";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
