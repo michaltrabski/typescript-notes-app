@@ -1,16 +1,15 @@
 import firebase from "firebase/app";
-// import firestore from "firebase/firestore";
-
-// import "firebase/firestore";
 import "firebase/auth";
+import "firebase/firestore";
 
 firebase.initializeApp({
   apiKey: `${process.env.REACT_APP_APIKEY}`,
-  authDomain: `${process.env.REACT_APP_authDomain}`,
-  databaseURL: `${process.env.REACT_APP_databaseURL}`,
-  projectId: `${process.env.REACT_APP_projectId}`,
-  storageBucket: `${process.env.REACT_APP_storageBucket}`,
-  messagingSenderId: `${process.env.REACT_APP_messagingSenderId}`,
-  appId: `${process.env.REACT_APP_appId}`,
+  authDomain: `${process.env.REACT_APP_AUTHDOMAIN}`,
+  projectId: `${process.env.REACT_APP_PROJECTID}`,
+  storageBucket: `${process.env.REACT_APP_STORAGEBUCKET}`,
+  messagingSenderId: `${process.env.REACT_APP_MESSAGINGSENDERID}`,
+  appId: `${process.env.REACT_APP_APPID}`,
 });
-export default firebase;
+
+export const auth = firebase.auth();
+export const bd = firebase.firestore();
