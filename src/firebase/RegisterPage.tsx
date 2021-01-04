@@ -3,8 +3,8 @@ import Avatar from "@material-ui/core/Avatar";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import { settings } from "../settings/settings";
-import { useAuth } from "../hooks/hooks";
-import AuthForm from "../components/AuthForm/AuthForm";
+import { useAuth } from "./hooks/useAuth";
+import AuthForm from "./components/AuthForm";
 
 const RegisterPage = () => {
   const classes = useStyles();
@@ -18,7 +18,7 @@ const RegisterPage = () => {
       {
         label: "Email",
         name: "email",
-        value: "michaltrabskiport+1@gmail.com",
+        value: "michaltrabskiport+cda@gmail.com",
       },
       {
         label: "Password",

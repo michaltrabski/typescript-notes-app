@@ -8,6 +8,11 @@ import Typography from "@material-ui/core/Typography";
 import Button from "@material-ui/core/Button";
 import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
+import MyLink from "../MyLink";
+import { Box } from "@material-ui/core";
+import { useSelector } from "react-redux";
+import { State } from "../../store/store";
+import { useAuth } from "../../firebase/hooks/useAuth";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -26,7 +31,10 @@ const useStyles = makeStyles((theme: Theme) =>
 const SimpleHeader = () => {
   const classes = useStyles();
 
-  const { homePage, loginPage, registerPage } = settings;
+  const { singleUser } = useSelector((state: State) => state.authReducer);
+  const { logoutUser } = useAuth([]);
+
+  const { homePage, loginPage, registerPage, logoutPage } = settings;
 
   return (
     <div className={classes.root}>
@@ -40,18 +48,26 @@ const SimpleHeader = () => {
           >
             <MenuIcon />
           </IconButton>
-          <Typography variant="h6" className={classes.title}>
-            News
-          </Typography>
-          <Button color="inherit">Login</Button>
+          <Box className={classes.title}>
+            <MyLink to={homePage.to}>{homePage.headerLabel}</MyLink>
+          </Box>
 
-          <NavLink to={homePage.to}>
-            <Button color="inherit">{homePage.headerLabel}</Button>
-          </NavLink>
+          {/* <Typography variant="h6" className={classes.title}>
+          NEWS
+          </Typography> */}
 
-          <NavLink to={loginPage.to}>{loginPage.headerLabel}</NavLink>
+          <p>{JSON.stringify(singleUser)}</p>
 
-          <NavLink to={registerPage.to}>{registerPage.headerLabel}</NavLink>
+          {singleUser.uid ? (
+            <Button color="secondary" variant="outlined" onClick={logoutUser}>
+              {logoutPage.headerLabel}
+            </Button>
+          ) : (
+            <>
+              <MyLink to={loginPage.to}>{loginPage.headerLabel}</MyLink>
+              <MyLink to={registerPage.to}>{registerPage.headerLabel}</MyLink>
+            </>
+          )}
         </Toolbar>
       </AppBar>
     </div>

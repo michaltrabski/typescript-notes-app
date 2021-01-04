@@ -10,21 +10,22 @@ import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import { settings } from "../settings/settings";
-import { Field, useAuth } from "../hooks/hooks";
-import AuthForm from "../components/AuthForm/AuthForm";
+import { Field, useAuth } from "./hooks/useAuth";
+import AuthForm from "./components/AuthForm";
 
-const LoginPage = () => {
+const ResetPasswordPage = () => {
   const classes = useStyles();
-  const { fields, masterErrorMessage, loginUser, handleChange } = useAuth([
+  const {
+    fields,
+    masterErrorMessage,
+    handleChange,
+    resetPassword,
+    mainInfo,
+  } = useAuth([
     {
       label: "Email",
       name: "email",
       value: "michaltrabskiport+1@gmail.com",
-    },
-    {
-      label: "Password",
-      name: "password",
-      value: "123123",
     },
   ]);
   return (
@@ -32,22 +33,23 @@ const LoginPage = () => {
       <div className={classes.paper}>
         <Avatar className={classes.avatar}></Avatar>
         <Typography variant="h4" component="h1" gutterBottom>
-          {settings.registerPage.title}
+          {settings.resetPasswordPage.title}
         </Typography>
 
         <AuthForm
           fields={fields}
           masterErrorMessage={masterErrorMessage}
-          settingsData={settings.registerPage}
+          mainInfo={mainInfo}
+          settingsData={settings.resetPasswordPage}
           handleChange={handleChange}
-          handleFormSubmit={loginUser}
+          handleFormSubmit={resetPassword}
         />
       </div>
     </>
   );
 };
 
-export default LoginPage;
+export default ResetPasswordPage;
 
 const useStyles = makeStyles((theme) => ({
   paper: {
