@@ -33,7 +33,7 @@ const darkTheme = createMuiTheme({
 export const Context = createContext<any>({});
 
 const MuiThemeProvider = (props: any) => {
-  const [theme, setTheme] = useState<boolean>(true);
+  const [theme, setTheme] = useState<boolean>(false);
 
   const toogleTheme = () => {
     setTheme((theme) => !theme);

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { db, auth } from "../firebase";
-import { firebaseSettings } from "../../settings/settings";
+import { db, auth, timeStamp } from "../firebase";
+import { firebaseSettings, userTemplate } from "../../settings/settings";
+import { UserType } from "../../reduxStore/types/authActionsTypes";
 
 type FieldMuiType = "TextField" | "Checkbox";
 export type MasterErrorMessage = string;
@@ -47,40 +48,43 @@ export const useAuth = (initialFields: Field[]) => {
   const [fields, setFields] = useState<DefaultField[]>(
     initialFields.map((field) => ({ ...defaultField, ...field }))
   );
-  const [
-    masterErrorMessage,
-    setMasterErrorMessage,
-  ] = useState<MasterErrorMessage>("");
 
   const [mainInfo, setMainInfo] = useState<MainInfo>(defaultMainInfo);
 
   // registerNewUser
   const registerNewUser = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setMainInfo(defaultMainInfo);
     const email = fields.find((item) => item.name === "email");
     const password = fields.find((item) => item.name === "password");
     if (email && password) {
       auth
         .createUserWithEmailAndPassword(email.value, password.value)
         .then((userFromFirebaseAuth) => {
-          console.log("user created", userFromFirebaseAuth);
-
           if (userFromFirebaseAuth.user) {
+            const newUser: UserType = {
+              ...userTemplate,
+              uid: userFromFirebaseAuth.user.uid,
+              email: userFromFirebaseAuth.user.email || "",
+              registerdAt: timeStamp.now(),
+            };
+
             db.collection(firebaseSettings.users)
               .doc(userFromFirebaseAuth.user.uid)
-              .set({
-                uid: userFromFirebaseAuth.user.uid,
-                email: userFromFirebaseAuth.user.email,
-              })
-              .then(() => console.log("Document successfully written!"))
+              .set(newUser)
+              .then(() =>
+                setMainInfo({
+                  type: "success",
+                  message: "User is created and signed in!",
+                })
+              )
               .catch((error) =>
                 console.error("Error writing document: ", error)
               );
           }
         })
         .catch((error) => {
-          console.log("error = ", error.message);
-          setMasterErrorMessage(error.message);
+          setMainInfo({ type: "error", message: error.message });
         });
     }
   };
@@ -92,18 +96,18 @@ export const useAuth = (initialFields: Field[]) => {
     // errorCallback: () => void
   ) => {
     e.preventDefault();
+    setMainInfo(defaultMainInfo);
     const email = fields.find((item) => item.name === "email");
     const password = fields.find((item) => item.name === "password");
     if (email && password) {
       auth
         .signInWithEmailAndPassword(email.value, password.value)
         .then((user) => {
-          console.log("SIGNED IN");
+          setMainInfo({ type: "success", message: "User is signed in!" });
           // successCallback();
         })
         .catch((error) => {
-          console.log("error = ", error.message);
-          setMasterErrorMessage(error.message);
+          setMainInfo({ type: "error", message: error.message });
           // errorCallback();
         });
     }
@@ -111,6 +115,7 @@ export const useAuth = (initialFields: Field[]) => {
 
   // logoutUser
   const logoutUser = async () => {
+    setMainInfo(defaultMainInfo);
     try {
       await auth.signOut();
       console.log("wylogowano");
@@ -139,7 +144,6 @@ export const useAuth = (initialFields: Field[]) => {
 
   // handleChange
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    if (masterErrorMessage) setMasterErrorMessage("");
     setMainInfo(defaultMainInfo);
     const newFields = fields.map((field) => {
       return field.name === e.target.name
@@ -151,7 +155,6 @@ export const useAuth = (initialFields: Field[]) => {
 
   return {
     fields,
-    masterErrorMessage,
     mainInfo,
     loginUser,
     registerNewUser,

@@ -8,30 +8,28 @@ import AuthForm from "./components/AuthForm";
 
 const RegisterPage = () => {
   const classes = useStyles();
-  const { fields, masterErrorMessage, registerNewUser, handleChange } = useAuth(
-    [
-      {
-        label: "First Name",
-        name: "fname",
-        value: "JANUSZ",
-      },
-      {
-        label: "Email",
-        name: "email",
-        value: "michaltrabskiport+cda@gmail.com",
-      },
-      {
-        label: "Password",
-        name: "password",
-        value: "123123",
-      },
-      {
-        label: "Accept terms.",
-        name: "checkbox",
-        fieldMuiType: "Checkbox",
-      },
-    ]
-  );
+  const { fields, mainInfo, registerNewUser, handleChange } = useAuth([
+    {
+      label: "First Name",
+      name: "fname",
+      value: "JANUSZ",
+    },
+    {
+      label: "Email",
+      name: "email",
+      value: "michaltrabskiport+cda@gmail.com",
+    },
+    {
+      label: "Password",
+      name: "password",
+      value: "123123",
+    },
+    {
+      label: "Accept terms.",
+      name: "checkbox",
+      fieldMuiType: "Checkbox",
+    },
+  ]);
   return (
     <>
       <div className={classes.paper}>
@@ -42,7 +40,7 @@ const RegisterPage = () => {
 
         <AuthForm
           fields={fields}
-          masterErrorMessage={masterErrorMessage}
+          mainInfo={mainInfo}
           settingsData={settings.registerPage}
           handleChange={handleChange}
           handleFormSubmit={registerNewUser}

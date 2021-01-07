@@ -17,7 +17,7 @@ const ResetPasswordPage = () => {
   const classes = useStyles();
   const {
     fields,
-    masterErrorMessage,
+
     handleChange,
     resetPassword,
     mainInfo,
@@ -38,7 +38,6 @@ const ResetPasswordPage = () => {
 
         <AuthForm
           fields={fields}
-          masterErrorMessage={masterErrorMessage}
           mainInfo={mainInfo}
           settingsData={settings.resetPasswordPage}
           handleChange={handleChange}

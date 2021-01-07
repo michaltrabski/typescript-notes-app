@@ -1,27 +1,17 @@
 import React from "react";
-import { Link as ReactRouterLink } from "react-router-dom";
-import Link from "@material-ui/core/Link";
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
-import TextField from "@material-ui/core/TextField";
-import FormControlLabel from "@material-ui/core/FormControlLabel";
-import Checkbox from "@material-ui/core/Checkbox";
-import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import { makeStyles } from "@material-ui/core/styles";
 import { settings } from "../settings/settings";
-import { Field, useAuth } from "./hooks/useAuth";
+import { useAuth } from "./hooks/useAuth";
 import AuthForm from "./components/AuthForm";
+import PageWrapper from "../components/PageWrapper";
+import { Box } from "@material-ui/core";
 
 const LoginPage = () => {
   const classes = useStyles();
-  const {
-    fields,
-    masterErrorMessage,
-    loginUser,
-    handleChange,
-    logoutUser,
-  } = useAuth([
+  const { fields, mainInfo, loginUser, handleChange, logoutUser } = useAuth([
     {
       label: "Email",
       name: "email",
@@ -34,23 +24,24 @@ const LoginPage = () => {
     },
   ]);
   return (
-    <>
-      <div className={classes.paper}>
-        <Avatar className={classes.avatar}></Avatar>
-        <Typography variant="h4" component="h1" gutterBottom>
-          {settings.loginPage.title}
-        </Typography>
+    <PageWrapper>
+      <>
+        <Box className={classes.paper}>
+          <Avatar className={classes.avatar}></Avatar>
+          <Typography variant="h4" component="h1" gutterBottom>
+            {settings.loginPage.title}
+          </Typography>
 
-        <AuthForm
-          fields={fields}
-          masterErrorMessage={masterErrorMessage}
-          settingsData={settings.loginPage}
-          handleChange={handleChange}
-          handleFormSubmit={loginUser}
-        />
-      </div>
-      <Button onClick={logoutUser}>Wyloguj</Button>
-    </>
+          <AuthForm
+            fields={fields}
+            mainInfo={mainInfo}
+            settingsData={settings.loginPage}
+            handleChange={handleChange}
+            handleFormSubmit={loginUser}
+          />
+        </Box>
+      </>
+    </PageWrapper>
   );
 };
 

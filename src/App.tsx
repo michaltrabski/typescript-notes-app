@@ -11,10 +11,15 @@ import RegisterPage from "./firebase/RegisterPage";
 import ResetPasswordPage from "./firebase/ResetPasswordPage";
 import { auth } from "./firebase/firebase";
 import { useDispatch } from "react-redux";
-import { GetUserFirestoreDataByUid } from "./store/actions/authActions";
+import {
+  GetUserFirestoreDataByUid,
+  LogoutUser,
+} from "./reduxStore/actions/authActions";
+import SuperAdminPage from "./superAdmin/SuperAdminPage";
 
 function App() {
   const dispatch = useDispatch();
+
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((currentUser) => {
       if (currentUser) {
@@ -22,10 +27,12 @@ function App() {
         dispatch(GetUserFirestoreDataByUid(currentUser.uid));
       } else {
         console.log("No user is signed in.");
+        dispatch(LogoutUser());
       }
     });
     return () => unsubscribe();
   }, []);
+
   return (
     <MuiThemeProvider>
       <Router>
@@ -40,6 +47,10 @@ function App() {
               component={ResetPasswordPage}
             />
 
+            <Route
+              path={settings.superAdminPage.to}
+              component={SuperAdminPage}
+            />
             <Route path={settings.homePage.to} component={HomePage} />
           </Switch>
         </Container>

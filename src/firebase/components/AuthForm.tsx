@@ -7,12 +7,11 @@ import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import Grid from "@material-ui/core/Grid";
 import { makeStyles } from "@material-ui/core/styles";
-import { DefaultField, MainInfo, MasterErrorMessage } from "../hooks/useAuth";
+import { DefaultField, MainInfo } from "../hooks/useAuth";
 import { Alert, AlertTitle } from "@material-ui/lab";
 
 interface Props {
   fields: DefaultField[];
-  masterErrorMessage: MasterErrorMessage;
   mainInfo?: MainInfo;
   settingsData: any;
   handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -66,39 +65,32 @@ const AuthForm = (props: Props) => {
           {props.settingsData.buttonText}
         </Button>
 
-        {props.masterErrorMessage && (
-          <Alert severity="error">
-            {/* <AlertTitle>Error</AlertTitle> */}
-            {props.masterErrorMessage}
-          </Alert>
-        )}
-
         {props.mainInfo && props.mainInfo.type && (
           <Alert className={classes.alert} severity={props.mainInfo.type}>
             {/* <AlertTitle>Error</AlertTitle> */}
             {props.mainInfo.message}
           </Alert>
         )}
-
-        <Grid container spacing={2}>
-          <Grid item xs={12} sm={6}>
-            <Link
-              to={props.settingsData.leftBottomLinkTo}
-              component={ReactRouterLink}
-            >
-              {props.settingsData.leftBottomLinkText}
-            </Link>
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <Link
-              to={props.settingsData.rightBottomLinkTo}
-              component={ReactRouterLink}
-            >
-              {props.settingsData.rightBottomLinkText}
-            </Link>
-          </Grid>
-        </Grid>
       </form>
+
+      <Grid container spacing={2}>
+        <Grid item xs={12} sm={6}>
+          <Link
+            to={props.settingsData.leftBottomLinkTo}
+            component={ReactRouterLink}
+          >
+            {props.settingsData.leftBottomLinkText}
+          </Link>
+        </Grid>
+        <Grid item xs={12} sm={6}>
+          <Link
+            to={props.settingsData.rightBottomLinkTo}
+            component={ReactRouterLink}
+          >
+            {props.settingsData.rightBottomLinkText}
+          </Link>
+        </Grid>
+      </Grid>
     </>
   );
 };

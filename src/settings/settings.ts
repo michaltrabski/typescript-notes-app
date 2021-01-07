@@ -1,5 +1,14 @@
+import { UserType } from "../reduxStore/types/authActionsTypes";
+
 export const firebaseSettings = {
   users: "users",
+};
+
+export const userTemplate: UserType = {
+  uid: "",
+  email: "",
+  registerdAt: "",
+  role: "USER",
 };
 
 export const settings = {
@@ -34,5 +43,10 @@ export const settings = {
   },
   logoutPage: {
     headerLabel: "Logout",
+  },
+  superAdminPage: {
+    headerLabel: "Super Admin",
+    to: "/super-admin",
+    title: "Super Admin",
   },
 };

@@ -9,7 +9,7 @@ export default function SimpleContainer(props: Props) {
   return (
     <React.Fragment>
       <CssBaseline />
-      <Container maxWidth="sm">
+      <Container>
         <>{props.children}</>
       </Container>
     </React.Fragment>
