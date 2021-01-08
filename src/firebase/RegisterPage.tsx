@@ -5,9 +5,14 @@ import { makeStyles } from "@material-ui/core/styles";
 import { settings } from "../settings/settings";
 import { useAuth } from "./hooks/useAuth";
 import AuthForm from "./components/AuthForm";
+import { useSelector } from "react-redux";
+import { State } from "../reduxStore/store";
 
 const RegisterPage = () => {
   const classes = useStyles();
+
+  const { randomEmail } = useSelector((state: State) => state.authReducer);
+
   const { fields, mainInfo, registerNewUser, handleChange } = useAuth([
     {
       label: "First Name",
@@ -17,7 +22,7 @@ const RegisterPage = () => {
     {
       label: "Email",
       name: "email",
-      value: "michaltrabskiport+cda@gmail.com",
+      value: randomEmail,
     },
     {
       label: "Password",

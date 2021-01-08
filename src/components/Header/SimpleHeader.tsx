@@ -40,6 +40,7 @@ const SimpleHeader = () => {
     registerPage,
     logoutPage,
     superAdminPage,
+    userAccountPage,
   } = settings;
 
   return (
@@ -48,34 +49,36 @@ const SimpleHeader = () => {
         <Toolbar>
           <Box className={classes.title}>
             <MyLink to={homePage.to}>{homePage.headerLabel}</MyLink>
+            <MyLink to={superAdminPage.to}>{superAdminPage.headerLabel}</MyLink>
           </Box>
 
           {/* <Typography variant="h6" className={classes.title}>
           NEWS
           </Typography> */}
 
-          {/* <p>{JSON.stringify(singleUser)}</p> */}
-
-          <MyLink to={superAdminPage.to}>{superAdminPage.headerLabel}</MyLink>
-
           {singleUser.uid ? (
-            <Button color="secondary" variant="outlined" onClick={logoutUser}>
-              {logoutPage.headerLabel}
-            </Button>
+            <>
+              <MyLink to={userAccountPage.to}>
+                {userAccountPage.headerLabel}
+              </MyLink>
+              <Button color="secondary" variant="outlined" onClick={logoutUser}>
+                {logoutPage.headerLabel}
+              </Button>
+            </>
           ) : (
             <>
               <MyLink to={loginPage.to}>{loginPage.headerLabel}</MyLink>
               <MyLink to={registerPage.to}>{registerPage.headerLabel}</MyLink>
             </>
           )}
-          <IconButton
+          {/* <IconButton
             edge="start"
             className={classes.menuButton}
             color="inherit"
             aria-label="menu"
           >
             <MenuIcon />
-          </IconButton>
+          </IconButton> */}
         </Toolbar>
       </AppBar>
     </div>

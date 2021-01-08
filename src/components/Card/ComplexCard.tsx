@@ -58,14 +58,27 @@ export default function ComplexCard() {
             J
           </Avatar>
         }
+        // action={
+        //   <IconButton aria-label="settings">
+        //     <MoreVertIcon />
+        //   </IconButton>
+        // }
         action={
-          <IconButton aria-label="settings">
-            <MoreVertIcon />
+          <IconButton
+            className={clsx(classes.expand, {
+              [classes.expandOpen]: expanded,
+            })}
+            onClick={handleExpandClick}
+            aria-expanded={expanded}
+            aria-label="show more"
+          >
+            <ExpandMoreIcon />
           </IconButton>
         }
         title="afdsdf@wp.pl"
         subheader={`added: ${moment().fromNow()}`}
       />
+
       {/* <CardMedia
         className={classes.media}
         image="/static/images/cards/paella.jpg"
@@ -78,28 +91,19 @@ export default function ComplexCard() {
           mussels, if you like.
         </Typography>
       </CardContent> */}
-      <CardActions disableSpacing>
-        <IconButton aria-label="add to favorites">
-          <FavoriteIcon />
-        </IconButton>
-        <IconButton aria-label="share">
-          <ShareIcon />
-        </IconButton>
-        <IconButton
-          className={clsx(classes.expand, {
-            [classes.expandOpen]: expanded,
-          })}
-          onClick={handleExpandClick}
-          aria-expanded={expanded}
-          aria-label="show more"
-        >
-          <ExpandMoreIcon />
-        </IconButton>
-      </CardActions>
       <Collapse in={expanded} timeout="auto" unmountOnExit>
-        <CardContent>
+        <CardActions disableSpacing>
+          <IconButton aria-label="add to favorites">
+            <FavoriteIcon />
+          </IconButton>
+          <IconButton aria-label="share">
+            <ShareIcon />
+          </IconButton>
+        </CardActions>
+
+        {/* <CardContent>
           <Typography paragraph>Lorem ipsum dolor sit...</Typography>
-        </CardContent>
+        </CardContent> */}
       </Collapse>
     </Card>
   );

@@ -13,9 +13,11 @@ import { auth } from "./firebase/firebase";
 import { useDispatch } from "react-redux";
 import {
   GetUserFirestoreDataByUid,
+  GetUserRealtimeUpdateFirestoreDataByUid,
   LogoutUser,
 } from "./reduxStore/actions/authActions";
 import SuperAdminPage from "./superAdmin/SuperAdminPage";
+import UserAccountPage from "./userAccount/UserAccountPage";
 
 function App() {
   const dispatch = useDispatch();
@@ -24,7 +26,8 @@ function App() {
     const unsubscribe = auth.onAuthStateChanged((currentUser) => {
       if (currentUser) {
         console.log("currentUser = ", currentUser);
-        dispatch(GetUserFirestoreDataByUid(currentUser.uid));
+        // dispatch(GetUserFirestoreDataByUid(currentUser.uid));
+        dispatch(GetUserRealtimeUpdateFirestoreDataByUid(currentUser.uid));
       } else {
         console.log("No user is signed in.");
         dispatch(LogoutUser());
@@ -51,6 +54,12 @@ function App() {
               path={settings.superAdminPage.to}
               component={SuperAdminPage}
             />
+
+            <Route
+              path={settings.userAccountPage.to}
+              component={UserAccountPage}
+            />
+
             <Route path={settings.homePage.to} component={HomePage} />
           </Switch>
         </Container>

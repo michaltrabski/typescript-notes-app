@@ -12,20 +12,19 @@ import { makeStyles } from "@material-ui/core/styles";
 import { settings } from "../settings/settings";
 import { Field, useAuth } from "./hooks/useAuth";
 import AuthForm from "./components/AuthForm";
+import { useSelector } from "react-redux";
+import { State } from "../reduxStore/store";
 
 const ResetPasswordPage = () => {
   const classes = useStyles();
-  const {
-    fields,
 
-    handleChange,
-    resetPassword,
-    mainInfo,
-  } = useAuth([
+  const { randomEmail } = useSelector((state: State) => state.authReducer);
+
+  const { fields, handleChange, resetPassword, mainInfo } = useAuth([
     {
       label: "Email",
       name: "email",
-      value: "michaltrabskiport+1@gmail.com",
+      value: randomEmail,
     },
   ]);
   return (

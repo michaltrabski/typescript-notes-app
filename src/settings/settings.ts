@@ -49,4 +49,9 @@ export const settings = {
     to: "/super-admin",
     title: "Super Admin",
   },
+  userAccountPage: {
+    headerLabel: "Account",
+    to: "/your-account",
+    title: "Your Account",
+  },
 };

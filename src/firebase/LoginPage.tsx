@@ -8,14 +8,19 @@ import { useAuth } from "./hooks/useAuth";
 import AuthForm from "./components/AuthForm";
 import PageWrapper from "../components/PageWrapper";
 import { Box } from "@material-ui/core";
+import { useSelector } from "react-redux";
+import { State } from "../reduxStore/store";
 
 const LoginPage = () => {
   const classes = useStyles();
-  const { fields, mainInfo, loginUser, handleChange, logoutUser } = useAuth([
+
+  const { randomEmail } = useSelector((state: State) => state.authReducer);
+
+  const { fields, mainInfo, loginUser, handleChange } = useAuth([
     {
       label: "Email",
       name: "email",
-      value: "michaltrabskiport+cda@gmail.com",
+      value: randomEmail,
     },
     {
       label: "Password",
@@ -23,6 +28,7 @@ const LoginPage = () => {
       value: "123123",
     },
   ]);
+
   return (
     <PageWrapper>
       <>
