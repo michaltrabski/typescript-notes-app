@@ -3,10 +3,33 @@ import { db } from "../../firebase/firebase";
 import { firebaseSettings, userTemplate } from "../../settings/settings";
 import {
   GetUserFirestoreDataByUidType,
+  GetAllUsersRealtimeType,
   GET_USER_SUCCESS,
+  GET_ALL_USERS_REALTIME_SUCCESS,
   LogoutUserType,
   LOGOUT_USER,
+  UserType,
 } from "../types/authActionsTypes";
+
+export const GetAllUsersRealtime = () => async (
+  dispatch: Dispatch<GetAllUsersRealtimeType>
+) => {
+  try {
+    await db
+      .collection(firebaseSettings.users)
+      // .where("capital", "==", true)
+      .onSnapshot((querySnapshot) => {
+        const allUsers: UserType[] = [];
+        querySnapshot.forEach(function (doc) {
+          const user: UserType = { ...userTemplate, ...doc.data() };
+          allUsers.push(user);
+        });
+        dispatch({ type: GET_ALL_USERS_REALTIME_SUCCESS, allUsers });
+      });
+  } catch (error) {
+    console.log("ERROR GetAllUsersRealtime", error);
+  }
+};
 
 //---------------------------------------------------------------------------
 export const GetUserRealtimeUpdateFirestoreDataByUid = (uid: string) => async (
@@ -17,9 +40,7 @@ export const GetUserRealtimeUpdateFirestoreDataByUid = (uid: string) => async (
     const docRef = db.collection(firebaseSettings.users).doc(uid);
 
     unsubscribe = await docRef.onSnapshot((doc) => {
-      // console.log("singleUser => ", doc.data());
-      const docData = doc.data();
-      const singleUser = { ...userTemplate, ...docData };
+      const singleUser = { ...userTemplate, ...doc.data() };
       dispatch({ type: GET_USER_SUCCESS, singleUser });
     });
   } catch (error) {

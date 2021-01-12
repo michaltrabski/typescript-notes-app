@@ -21,4 +21,14 @@ export type LogoutUserType = {
 };
 
 //---------------------------------------------------------------------------
-export type AuthDispatchType = GetUserFirestoreDataByUidType | LogoutUserType;
+export const GET_ALL_USERS_REALTIME_SUCCESS = "GET_ALL_USERS_REALTIME_SUCCESS";
+export type GetAllUsersRealtimeType = {
+  type: typeof GET_ALL_USERS_REALTIME_SUCCESS;
+  allUsers: UserType[];
+};
+
+//---------------------------------------------------------------------------
+export type AuthDispatchType =
+  | GetUserFirestoreDataByUidType
+  | GetAllUsersRealtimeType
+  | LogoutUserType;

@@ -5,6 +5,7 @@ import {
   GET_USER_SUCCESS,
   AuthDispatchType,
   LOGOUT_USER,
+  GET_ALL_USERS_REALTIME_SUCCESS,
 } from "../types/authActionsTypes";
 
 interface AuthI {
@@ -27,6 +28,14 @@ const authReducer = (state: AuthI = defaultState, action: AuthDispatchType) => {
 
     case LOGOUT_USER:
       state = { ...state, ...defaultState };
+      return state;
+    //////////////////////////////////////////////////////
+
+    case GET_ALL_USERS_REALTIME_SUCCESS:
+      // console.log("state1", state);
+      // console.log(state.allUsers, action.allUsers);
+      state = { ...state, allUsers: action.allUsers };
+      // console.log("state2", state);
       return state;
     //////////////////////////////////////////////////////
     default:

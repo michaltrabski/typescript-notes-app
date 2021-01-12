@@ -1,5 +1,5 @@
 export const reandomEmail = () => {
-  return `michaltrabskiphone+random_${randBetween(0, 10000)}@gmail.com`;
+  return `michaltrabskiphone+_${randBetween(0, 10000)}@gmail.com`;
 };
 
 export const randBetween = (min: number, max: number) => {

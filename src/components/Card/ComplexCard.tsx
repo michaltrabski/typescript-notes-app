@@ -16,6 +16,7 @@ import ShareIcon from "@material-ui/icons/Share";
 import ExpandMoreIcon from "@material-ui/icons/ExpandMore";
 import MoreVertIcon from "@material-ui/icons/MoreVert";
 import moment from "moment";
+import { UserType } from "../../reduxStore/types/authActionsTypes";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -42,7 +43,10 @@ const useStyles = makeStyles((theme: Theme) =>
   })
 );
 
-export default function ComplexCard() {
+interface Props {
+  singleUser: UserType;
+}
+export default function ComplexCard(props: Props) {
   const classes = useStyles();
   const [expanded, setExpanded] = React.useState(false);
 
@@ -75,8 +79,10 @@ export default function ComplexCard() {
             <ExpandMoreIcon />
           </IconButton>
         }
-        title="afdsdf@wp.pl"
-        subheader={`added: ${moment().fromNow()}`}
+        title={props.singleUser.email}
+        subheader={`added: ${moment(
+          props.singleUser.registerdAt.seconds * 1000
+        ).fromNow()}`}
       />
 
       {/* <CardMedia

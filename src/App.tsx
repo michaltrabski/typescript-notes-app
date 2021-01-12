@@ -12,6 +12,7 @@ import ResetPasswordPage from "./firebase/ResetPasswordPage";
 import { auth } from "./firebase/firebase";
 import { useDispatch } from "react-redux";
 import {
+  GetAllUsersRealtime,
   GetUserFirestoreDataByUid,
   GetUserRealtimeUpdateFirestoreDataByUid,
   LogoutUser,
@@ -25,8 +26,6 @@ function App() {
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((currentUser) => {
       if (currentUser) {
-        console.log("currentUser = ", currentUser);
-        // dispatch(GetUserFirestoreDataByUid(currentUser.uid));
         dispatch(GetUserRealtimeUpdateFirestoreDataByUid(currentUser.uid));
       } else {
         console.log("No user is signed in.");
@@ -34,6 +33,10 @@ function App() {
       }
     });
     return () => unsubscribe();
+  }, []);
+
+  useEffect(() => {
+    dispatch(GetAllUsersRealtime());
   }, []);
 
   return (

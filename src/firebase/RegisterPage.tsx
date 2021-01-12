@@ -1,16 +1,13 @@
 import React from "react";
-import Avatar from "@material-ui/core/Avatar";
-import Typography from "@material-ui/core/Typography";
-import { makeStyles } from "@material-ui/core/styles";
 import { settings } from "../settings/settings";
 import { useAuth } from "./hooks/useAuth";
 import AuthForm from "./components/AuthForm";
 import { useSelector } from "react-redux";
 import { State } from "../reduxStore/store";
+import PageWrapper from "../components/PageWrapper";
+import AccountCircleIcon from "@material-ui/icons/AccountCircle";
 
 const RegisterPage = () => {
-  const classes = useStyles();
-
   const { randomEmail } = useSelector((state: State) => state.authReducer);
 
   const { fields, mainInfo, registerNewUser, handleChange } = useAuth([
@@ -36,36 +33,19 @@ const RegisterPage = () => {
     },
   ]);
   return (
-    <>
-      <div className={classes.paper}>
-        <Avatar className={classes.avatar}></Avatar>
-        <Typography variant="h4" component="h1" gutterBottom>
-          {settings.registerPage.title}
-        </Typography>
-
-        <AuthForm
-          fields={fields}
-          mainInfo={mainInfo}
-          settingsData={settings.registerPage}
-          handleChange={handleChange}
-          handleFormSubmit={registerNewUser}
-        />
-      </div>
-    </>
+    <PageWrapper
+      title={settings.registerPage.title}
+      titleIcon={<AccountCircleIcon />}
+    >
+      <AuthForm
+        fields={fields}
+        mainInfo={mainInfo}
+        settingsData={settings.registerPage}
+        handleChange={handleChange}
+        handleFormSubmit={registerNewUser}
+      />
+    </PageWrapper>
   );
 };
-
-const useStyles = makeStyles((theme) => ({
-  paper: {
-    // marginTop: theme.spacing(8),
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
-  },
-}));
 
 export default RegisterPage;

@@ -10,6 +10,7 @@ import PageWrapper from "../components/PageWrapper";
 import { Box } from "@material-ui/core";
 import { useSelector } from "react-redux";
 import { State } from "../reduxStore/store";
+import PersonIcon from "@material-ui/icons/Person";
 
 const LoginPage = () => {
   const classes = useStyles();
@@ -30,23 +31,14 @@ const LoginPage = () => {
   ]);
 
   return (
-    <PageWrapper>
-      <>
-        <Box className={classes.paper}>
-          <Avatar className={classes.avatar}></Avatar>
-          <Typography variant="h4" component="h1" gutterBottom>
-            {settings.loginPage.title}
-          </Typography>
-
-          <AuthForm
-            fields={fields}
-            mainInfo={mainInfo}
-            settingsData={settings.loginPage}
-            handleChange={handleChange}
-            handleFormSubmit={loginUser}
-          />
-        </Box>
-      </>
+    <PageWrapper title={settings.loginPage.title} titleIcon={<PersonIcon />}>
+      <AuthForm
+        fields={fields}
+        mainInfo={mainInfo}
+        settingsData={settings.loginPage}
+        handleChange={handleChange}
+        handleFormSubmit={loginUser}
+      />
     </PageWrapper>
   );
 };
@@ -56,9 +48,9 @@ export default LoginPage;
 const useStyles = makeStyles((theme) => ({
   paper: {
     // marginTop: theme.spacing(8),
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
+    // display: "flex",
+    // flexDirection: "column",
+    // alignItems: "center",
   },
   avatar: {
     margin: theme.spacing(1),
